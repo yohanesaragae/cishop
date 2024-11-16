@@ -38,7 +38,7 @@
                     ]) ?>
                         <?= form_error('password_confirmation') ?>
                     </div>
-                    <button type="button" class="btn btn-primary">Register</button>
+                    <button type="submit" class="btn btn-primary">Register</button>
                     <?= form_close() ?>
                 </div>
             </div>
