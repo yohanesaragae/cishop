@@ -79,7 +79,7 @@ class MY_Model extends CI_Model
 	}
 	public function count()
 	{
-		return $this->db->count_all_result($this->table);
+		return $this->db->count_all_results($this->table);
 	}
 
 	public function create($data)
@@ -103,6 +103,7 @@ class MY_Model extends CI_Model
 			$this->perpage,
 			$this->calculateRealOffset($page)
 		);
+		return $this;
 	}
 
 	public function calculateRealOffset($page)
@@ -148,7 +149,7 @@ class MY_Model extends CI_Model
 		];
 
 		$this->pagination->initialize($config);
-		return $this->pagination->create_link();
+		return $this->pagination->create_links();
 	}
 }
 

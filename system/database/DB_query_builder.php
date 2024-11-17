@@ -2799,7 +2799,7 @@ abstract class CI_DB_query_builder extends CI_DB_driver {
 			'qb_from'	=> array(),
 			'qb_join'	=> array(),
 			'qb_where'	=> array(),
-			'qb_orderby'	=> array(),
+			'qb_orderby'=> array(),
 			'qb_keys'	=> array(),
 			'qb_limit'	=> FALSE
 		));
