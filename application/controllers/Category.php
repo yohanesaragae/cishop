@@ -7,7 +7,6 @@ class Category extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		
 	}
 
 
@@ -58,13 +57,13 @@ class Category extends MY_Controller
 
 		if (! $data['content']) {
 			$this->session->set_flashdata('warning', 'Maaf! Data tidak ditemukan!');
-		
-			redirect(base_url('category'));
-	}
 
-		if (!$_POST){
+			redirect(base_url('category'));
+		}
+
+		if (!$_POST) {
 			$data['input'] = $data['content'];
-		}else{
+		} else {
 			$data['input'] = (object) $this->input->post(null, true);
 		}
 
@@ -83,9 +82,29 @@ class Category extends MY_Controller
 			$this->session->set_flashdata('error', 'Oops! Terjadi suatu kesalahan.');
 		}
 		redirect(base_url('category'));
-		
-
 	}
+
+
+	public function delete($id)
+	{
+		if (!$_POST) {
+			redirect(base_url('category'));
+		}
+
+		if (! $this->category->where('id', $id)->first()) {
+			$this->session->set_flashdata('warning', 'Maaf! Data tidak ditemukan.');
+			redirect(base_url('category'));
+		}
+
+		if ($this->category->where('id', $id)->delete()) {
+			$this->session->set_flashdata('success', 'Data sudah berhasil dihapus!');
+		} else {
+			$this->session->set_flashdata('error', 'Oops! Terjadi suatu kesalahan.');
+		}
+
+		redirect(base_url('category'));
+	}
+
 
 	public function unique_slug()
 	{
@@ -97,6 +116,8 @@ class Category extends MY_Controller
 			if ($id == $category->id) {
 				return true;
 			}
+
+			$this->load->library('form_validation');
 			$this->form_validation->set_message('unique_slug', '%s sudah digunakan!');
 			return false;
 		}
@@ -105,4 +126,4 @@ class Category extends MY_Controller
 	}
 }
 
-/* End of file Controllername.php */
+/* End of file Category.php */

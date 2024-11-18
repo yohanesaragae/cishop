@@ -5,22 +5,21 @@
 
 	if ($success) {
 		$alert_status	= 'alert-success';
-		$status 		= 'Success!';
-		$message 		=  $success;
+		$status			= 'Success!';
+		$message		= $success;
 	}
 
 	if ($error) {
 		$alert_status	= 'alert-danger';
-		$status 		= 'Error!';
-		$message 		=  $error;
+		$status			= 'Error!';
+		$message		= $error;
 	}
 
 	if ($warning) {
 		$alert_status	= 'alert-warning';
-		$status 		= 'Warning!';
-		$message 		=  $warning;
+		$status			= 'Warning!';
+		$message		= $warning;
 	}
-	
 ?>
 
 <?php if ($success || $error || $warning): ?>
