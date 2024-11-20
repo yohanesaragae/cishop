@@ -55,11 +55,11 @@ class Category extends MY_Controller
 	{
 		$data['content'] = $this->category->where('id', $id)->first();
 
-		if (! $data['content']) {
-			$this->session->set_flashdata('warning', 'Maaf! Data tidak ditemukan!');
+		// if (! $data['content']) {
+		// 	$this->session->set_flashdata('warning', 'Maaf! Data tidak ditemukan!');
 
-			redirect(base_url('category'));
-		}
+		// 	redirect(base_url('category'));
+		// }
 
 		if (!$_POST) {
 			$data['input'] = $data['content'];
@@ -104,6 +104,8 @@ class Category extends MY_Controller
 
 		redirect(base_url('category'));
 	}
+
+
 
 
 	public function unique_slug()
