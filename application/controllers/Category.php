@@ -7,6 +7,11 @@ class Category extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$role = $this->session->userdata('role');
+		if ($role != 'admin') {
+			redirect(base_url('/'));
+			return;
+		}
 	}
 
 
@@ -40,10 +45,12 @@ class Category extends MY_Controller
 		$data['content']	= $this->category->like('title', $keyword)->paginate($page)->get();
 		$data['total_rows']	= $this->category->like('title', $keyword)->count();
 		$data['pagination']	= $this->category->makePagination(
-			base_url('category/search'), 3, $data['total_rows']
+			base_url('category/search'),
+			3,
+			$data['total_rows']
 		);
 		$data['page']		= 'page/category/index';
-		
+
 		$this->view($data);
 	}
 
@@ -55,7 +62,7 @@ class Category extends MY_Controller
 	}
 
 
-	
+
 
 	public function create()
 	{

@@ -1,49 +1,42 @@
 <?php
 
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-defined('BASEPATH') or exit('No direct script access allowed');
-
-class Product extends MY_Controller
+class Product extends MY_Controller 
 {
-
+	
 	public function __construct()
 	{
 		parent::__construct();
-		// $role = $this->session->userdata('role');
-		// if ($role != 'admin') {
-		// 	redirect(base_url('/'));
-		// 	return;
-		// }
+		$role = $this->session->userdata('role');
+		if ($role != 'admin') {
+			redirect(base_url('/'));
+			return;
+		}
 	}
-
+	
 
 	public function index($page = null)
 	{
 		$data['title']		= 'Admin: Produk';
 		$data['content']	= $this->product->select(
-			[
-				'product.id',
-				'product.title AS product_title',
-				'product.image',
-				'product.price',
-				'product.is_available',
-				'category.title AS category_title'
-			]
-		)
+				[
+					'product.id', 'product.title AS product_title', 'product.image', 
+					'product.price', 'product.is_available',
+					'category.title AS category_title'
+				]
+			)
 			->join('category')
 			->paginate($page)
 			->get();
 		$data['total_rows']	= $this->product->count();
 		$data['pagination']	= $this->product->makePagination(
-			base_url('product'),
-			2,
-			$data['total_rows']
+			base_url('product'), 2, $data['total_rows']
 		);
 		$data['page']		= 'page/product/index';
 
 		$this->view($data);
 	}
-
 
 	public function search($page = null)
 	{
@@ -56,15 +49,12 @@ class Product extends MY_Controller
 		$keyword	= $this->session->userdata('keyword');
 		$data['title']		= 'Admin: Produk';
 		$data['content']	= $this->product->select(
-			[
-				'product.id',
-				'product.title AS product_title',
-				'product.image',
-				'product.price',
-				'product.is_available',
-				'category.title AS category_title'
-			]
-		)
+				[
+					'product.id', 'product.title AS product_title', 'product.image', 
+					'product.price', 'product.is_available',
+					'category.title AS category_title'
+				]
+			)
 			->join('category')
 			->like('product.title', $keyword)
 			->orLike('description', $keyword)
@@ -72,23 +62,18 @@ class Product extends MY_Controller
 			->get();
 		$data['total_rows']	= $this->product->like('product.title', $keyword)->orLike('description', $keyword)->count();
 		$data['pagination']	= $this->product->makePagination(
-			base_url('product/search'),
-			3,
-			$data['total_rows']
+			base_url('product/search'), 3, $data['total_rows']
 		);
 		$data['page']		= 'page/product/index';
-
+		
 		$this->view($data);
 	}
 
-	
 	public function reset()
 	{
 		$this->session->unset_userdata('keyword');
 		redirect(base_url('product'));
 	}
-
-
 
 	public function create()
 	{
@@ -126,7 +111,6 @@ class Product extends MY_Controller
 
 		redirect(base_url('product'));
 	}
-
 
 	public function edit($id)
 	{
@@ -175,8 +159,6 @@ class Product extends MY_Controller
 		redirect(base_url('product'));
 	}
 
-
-
 	public function delete($id)
 	{
 		if (!$_POST) {
@@ -200,9 +182,6 @@ class Product extends MY_Controller
 		redirect(base_url('product'));
 	}
 
-
-
-
 	public function unique_slug()
 	{
 		$slug		= $this->input->post('slug');
@@ -220,4 +199,7 @@ class Product extends MY_Controller
 
 		return true;
 	}
+
 }
+
+/* End of file Product.php */
