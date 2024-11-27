@@ -6,10 +6,11 @@
                 <div class="col-md-12">
                     <div class="card mb-3">
                         <div class="card-body">
-                            Kategori: <strong>Semua Kategori</strong>
+                            Kategori: <strong><?= isset($category) ? $category : 'Semua Kategori' ?></strong>
                             <span class="float-right">
-                                Urutkan Harga: <a href="#" class="badge badge-primary">Termurah</a> | <a href="#"
-                                    class="badge badge-primary">Termahal</a>
+                                Urutkan Harga: <a href="<?= base_url("/shop/sortby/asc") ?>"
+                                    class="badge badge-primary">Termurah</a> | <a
+                                    href="<?= base_url("/shop/sortby/desc") ?>" class="badge badge-primary">Termahal</a>
                             </span>
                         </div>
                     </div>
@@ -17,7 +18,7 @@
             </div>
 
             <div class="row">
-                <?php foreach ($content as $row) : ?>
+                <?php foreach($content as $row) : ?>
                 <div class="col-md-6">
                     <div class="card mb-3">
                         <img src="<?= $row->image ? base_url("/images/product/$row->image") : base_url("/images/product/default.png") ?>"
@@ -45,9 +46,6 @@
                 <?php endforeach ?>
             </div>
 
-
-
-
             <nav aria-label="Page navigation example">
                 <?= $pagination ?>
             </nav>
@@ -60,11 +58,14 @@
                             Pencarian
                         </div>
                         <div class="card-body">
-                            <form action="">
+                            <form action="<?= base_url("/shop/search") ?>" method="POST">
                                 <div class="input-group">
-                                    <input type="text" class="form-control">
+                                    <input type="text" name="keyword" placeholder="Cari"
+                                        value="<?= $this->session->userdata('keyword') ?>" class="form-control">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary">Cari</button>
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="fas fa-search"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </form>
@@ -79,14 +80,16 @@
                             Kategori
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Semua Kategori</li>
-                            <li class="list-group-item">kategori 1</li>
-                            <li class="list-group-item">Kategori 2</li>
+                            <li class="list-group-item"><a href="<?= base_url('/') ?>">Semua Kategori</a></li>
+                            <?php foreach(getCategories() as $category) : ?>
+                            <li class="list-group-item"><a
+                                    href="<?= base_url("/shop/category/$category->slug") ?>"><?= $category->title ?></a>
+                            </li>
+                            <?php endforeach ?>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </main>

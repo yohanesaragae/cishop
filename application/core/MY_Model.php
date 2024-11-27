@@ -64,11 +64,13 @@ class MY_Model extends CI_Model
 		$this->db->join($table, "$this->table.id_$table = $table.id", $type);
 		return $this;
 	}
+
 	public function orderBy($column, $order = 'asc')
 	{
-		$this->db->orderBy($column, $order);
+		$this->db->order_by($column, $order);
 		return $this;
 	}
+
 	public function first()
 	{
 		return $this->db->get($this->table)->row();
