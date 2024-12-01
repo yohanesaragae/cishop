@@ -82,7 +82,7 @@ class Checkout extends MY_Controller
 			foreach ($cart as $row) {
 				$row['id_orders']	= $order;
 				unset($row['id'], $row['id_user']);
-				$this->db->insert('orders_detail', $row);
+				$this->db-> insert('orders_detail', $row);
 			}
 
 			$this->db->delete('cart', ['id_user' => $this->id]);
